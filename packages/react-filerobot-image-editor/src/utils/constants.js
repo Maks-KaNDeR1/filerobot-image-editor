@@ -17,6 +17,7 @@ export const TABS_IDS = {
   WATERMARK: 'Watermark',
   ANNOTATE: 'Annotate',
   RESIZE: 'Resize',
+  CUSTOM: 'Custom', 
 };
 
 export const TOOLS_IDS = {

@@ -120,6 +120,7 @@ export const TOOLS_ITEMS = {
 };
 
 export const TABS_TOOLS = {
+  [TABS_IDS.CUSTOM]: ['Custom_1'],
   [TABS_IDS.ADJUST]: [
     TOOLS_IDS.CROP,
     TOOLS_IDS.ROTATE,

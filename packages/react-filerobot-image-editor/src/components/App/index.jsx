@@ -336,7 +336,11 @@ const App = () => {
             showTabsDrawer={showTabsDrawer}
           >
             <MainCanvas />
-            {!showCanvasOnly && <ToolsBar isPhoneScreen={isPhoneScreen} />}
+            {!showCanvasOnly && <>
+            <ToolsBar isPhoneScreen={isPhoneScreen} />
+               {config.customButtons && Array.isArray(config.customButtons)}
+            </>
+            }
           </StyledCanvasAndTools>
         </StyledMainContent>
       )}

@@ -14,7 +14,7 @@ const Tabs = ({ toggleMainMenu, isDrawer }) => {
     t,
     tabId = null,
     dispatch,
-    config: { defaultTabId, tabsIds, useCloudimage },
+    config: { defaultTabId, tabsIds, useCloudimage, customTabs = [] },
   } = useStore();
 
   const currentTabId = tabId || defaultTabId;
@@ -22,47 +22,58 @@ const Tabs = ({ toggleMainMenu, isDrawer }) => {
   const selectTab = useCallback((newTabId) => {
     dispatch({
       type: SELECT_TAB,
-      payload: {
-        tabId: newTabId,
-      },
+      payload: { tabId: newTabId },
     });
-
     toggleMainMenu(false);
-  }, []);
+  }, [dispatch, toggleMainMenu]);
 
   const chosenTabs = useMemo(() => {
     let tabs = [];
-    if (Object.keys(tabsIds).length > 0) {
-      AVAILABLE_TABS.forEach((tab) => {
-        const index = tabsIds.indexOf(tab.id);
-        if (index !== -1) {
-          tabs[index] = tab;
-        }
+
+    if (tabsIds && tabsIds.length > 0) {
+      // Фильтруем AVAILABLE_TABS по tabsIds
+      const tabMap = new Map();
+      tabsIds.forEach((id, index) => tabMap.set(id, index));
+
+      const filtered = AVAILABLE_TABS.filter(
+        (tab) => !tab.hideFn || !tab.hideFn({ useCloudimage })
+      );
+
+      tabs = new Array(tabsIds.length);
+      filtered.forEach((tab) => {
+        const idx = tabMap.get(tab.id);
+        if (idx !== undefined) tabs[idx] = tab;
       });
+      tabs = tabs.filter(Boolean);
     } else {
-      tabs = AVAILABLE_TABS;
+      tabs = AVAILABLE_TABS.filter(
+        (tab) => !tab.hideFn || !tab.hideFn({ useCloudimage })
+      );
     }
 
-    return (tabs.length > 0 ? tabs : AVAILABLE_TABS).filter(
-      ({ hideFn }) => !hideFn || !hideFn({ useCloudimage }),
+    return [...tabs, ...customTabs];
+  }, [tabsIds, useCloudimage, customTabs]);
+
+  if (chosenTabs.length <= 1) return null;
+
+  const tabItems = (tab) => {
+    const { id, labelKey, icon: Icon, onClick } = tab;
+
+    const handleClick = onClick
+      ? () => onClick(toggleMainMenu)
+      : () => selectTab(id);
+
+    return (
+      <TabItem
+        key={id}
+        id={id}
+        label={t(labelKey)}
+        Icon={Icon}
+        isSelected={currentTabId === id}
+        onClick={handleClick}
+      />
     );
-  }, [tabsIds]);
-
-  // If only 1 tab is needed then no need to have the tabs sidebar.
-  if (chosenTabs.length === 1) {
-    return null;
-  }
-
-  const tabItems = ({ id, labelKey, icon }) => (
-    <TabItem
-      key={id}
-      id={id}
-      label={t(labelKey)}
-      Icon={icon}
-      isSelected={currentTabId === id}
-      onClick={selectTab}
-    />
-  );
+  };
 
   return (
     <>
@@ -71,7 +82,7 @@ const Tabs = ({ toggleMainMenu, isDrawer }) => {
           <DrawerItem key={tab.id}>{tabItems(tab)}</DrawerItem>
         ) : (
           tabItems(tab)
-        ),
+        )
       )}
     </>
   );
