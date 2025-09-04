@@ -18,6 +18,7 @@ export const TABS_IDS = {
   ANNOTATE: 'Annotate',
   RESIZE: 'Resize',
   CUSTOM: 'Custom', 
+  AI: 'AI', 
 };
 
 export const TOOLS_IDS = {

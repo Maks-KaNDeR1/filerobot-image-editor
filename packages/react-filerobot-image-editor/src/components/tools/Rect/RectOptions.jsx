@@ -14,6 +14,9 @@ import {
 const RectOptions = ({ t }) => {
   const [rect, saveRect] = useAnnotation({
     name: TOOLS_IDS.RECT,
+    defaultAnnotation: selectedTabId === TABS_IDS.AI
+      ? { fill: '#ac0606', strokeWidth: 2 }
+      : undefined,
   });
 
   return (
@@ -23,6 +26,7 @@ const RectOptions = ({ t }) => {
       morePoppableOptionsPrepended={RECT_POPPABLE_OPTIONS}
       annotation={rect}
       updateAnnotation={saveRect}
+      hideStrokeOption={selectedTabId === TABS_IDS.AI} 
       t={t}
     />
   );

@@ -17,11 +17,14 @@ const eventsOptions = {
 
 const PenOptions = ({ t }) => {
   const { dispatch, designLayer, previewGroup, config } = useStore();
+  const isAiMode = config.selectedTabId === TABS_IDS.AI; 
+
   const [pen, savePenDebounced, savePenNoDebounce] = useAnnotation(
     {
       ...config.annotationsCommon,
       ...config[TOOLS_IDS.PEN],
       name: TOOLS_IDS.PEN,
+      ...(isAiMode && { fill: '#ac0606', strokeWidth: 2 }), 
     },
     false,
   );
@@ -131,8 +134,10 @@ const PenOptions = ({ t }) => {
       annotation={pen}
       updateAnnotation={savePenDebounced}
       t={t}
-      hidePositionField
-      hideFillOption
+      // hidePositionField
+      // hideFillOption
+      // hidePositionField={isAiMode}
+      // hideFillOption={isAiMode}  
     />
   );
 };

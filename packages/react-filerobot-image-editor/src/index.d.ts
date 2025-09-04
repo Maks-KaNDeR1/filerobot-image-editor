@@ -8,6 +8,7 @@ declare const TABS = {
   WATERMARK: 'Watermark',
   ANNOTATE: 'Annotate',
   RESIZE: 'Resize',
+  AI: 'AI',
 } as const;
 
 declare const TOOLS = {
@@ -52,7 +53,7 @@ type closingReasons =
   | 'back-button-clicked'
   | string;
 
-type savedImageData = {
+export  type savedImageData = {
   name: string;
   extension: string;
   mimeType: string;
@@ -146,7 +147,7 @@ type cropPresetFolder = {
   icon?: string | HTMLElement | FunctionComponent;
 };
 
-type imageDesignState = {
+export type imageDesignState = {
   imgSrc?: string;
   finetunes?: string[];
   finetunesProps?: {

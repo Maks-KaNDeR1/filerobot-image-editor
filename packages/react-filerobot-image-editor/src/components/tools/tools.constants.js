@@ -147,4 +147,9 @@ export const TABS_TOOLS = {
     TOOLS_IDS.ARROW,
   ],
   [TABS_IDS.RESIZE]: [TOOLS_IDS.RESIZE],
+  [TABS_IDS.AI]: [
+    TOOLS_IDS.RECT,
+    TOOLS_IDS.ELLIPSE,
+    TOOLS_IDS.PEN,
+  ],
 };

@@ -10,6 +10,9 @@ import AnnotationOptions from 'components/common/AnnotationOptions';
 const EllipseOptions = ({ t }) => {
   const [ellipse, saveEllipse] = useAnnotation({
     name: TOOLS_IDS.ELLIPSE,
+    defaultAnnotation: selectedTabId === TABS_IDS.AI
+      ? { fill: '#ac0606', strokeWidth: 2 }
+      : undefined,
   });
 
   return (
@@ -17,6 +20,7 @@ const EllipseOptions = ({ t }) => {
       className="FIE_ellipse-tool-options"
       annotation={ellipse}
       updateAnnotation={saveEllipse}
+      hideStrokeOption={selectedTabId === TABS_IDS.AI} 
       t={t}
     />
   );

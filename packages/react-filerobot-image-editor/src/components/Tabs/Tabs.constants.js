@@ -44,4 +44,9 @@ export const AVAILABLE_TABS = [
     labelKey: 'resizeTab',
     icon: Resize,
   },
+  {
+    id: TABS_IDS.AI,
+    labelKey: 'aiTab',
+    icon: Stars,
+  },
 ];
