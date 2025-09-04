@@ -3,8 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 /** Internal Dependencies */
-import { useAnnotation } from 'hooks';
-import { TOOLS_IDS } from 'utils/constants';
+import { useAnnotation, useStore } from 'hooks';
+import { TOOLS_IDS,TABS_IDS } from 'utils/constants';
 import AnnotationOptions from 'components/common/AnnotationOptions';
 import {
   rectOptionsPopupComponents,
@@ -12,9 +12,10 @@ import {
 } from './Rect.constants';
 
 const RectOptions = ({ t }) => {
+  const {tabId} = useStore();
   const [rect, saveRect] = useAnnotation({
-    name: TOOLS_IDS.RECT,
-    defaultAnnotation: selectedTabId === TABS_IDS.AI
+    name: TOOLS_IDS.RECT, 
+    defaultAnnotation: tabId === TABS_IDS.AI
       ? { fill: '#ac0606', strokeWidth: 2 }
       : undefined,
   });
@@ -26,7 +27,7 @@ const RectOptions = ({ t }) => {
       morePoppableOptionsPrepended={RECT_POPPABLE_OPTIONS}
       annotation={rect}
       updateAnnotation={saveRect}
-      hideStrokeOption={selectedTabId === TABS_IDS.AI} 
+      hideStrokeOption={tabId === TABS_IDS.AI} 
       t={t}
     />
   );

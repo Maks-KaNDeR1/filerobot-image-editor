@@ -6,6 +6,7 @@ import {
   ImageFilters,
   Watermark,
   Resize,
+  Ai,
 } from '@scaleflex/icons';
 
 /** Internal Dependencies */
@@ -47,6 +48,6 @@ export const AVAILABLE_TABS = [
   {
     id: TABS_IDS.AI,
     labelKey: 'aiTab',
-    icon: Stars,
+    icon: Ai,
   },
 ];

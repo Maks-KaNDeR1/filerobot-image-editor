@@ -27,6 +27,7 @@ export default {
   annotateTabLabel: 'Аннотации',
   resize: 'Изменить размер',
   resizeTab: 'Изменить размер',
+  aiTab: 'ИИ',
   imageName: 'Имя изображения',
   invalidImageError: 'Указано некорректное изображение.',
   uploadImageError: 'Ошибка при загрузке изображения.',

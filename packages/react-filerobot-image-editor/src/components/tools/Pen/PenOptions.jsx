@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 /** Internal Dependencies */
 import { useAnnotation, useStore } from 'hooks';
-import { TOOLS_IDS } from 'utils/constants';
+import { TOOLS_IDS, TABS_IDS } from 'utils/constants';
 import AnnotationOptions from 'components/common/AnnotationOptions';
 import getPointerOffsetPositionBoundedToObject from 'utils/getPointerOffsetPositionBoundedToObject';
 import randomId from 'utils/randomId';
@@ -16,8 +16,8 @@ const eventsOptions = {
 };
 
 const PenOptions = ({ t }) => {
-  const { dispatch, designLayer, previewGroup, config } = useStore();
-  const isAiMode = config.selectedTabId === TABS_IDS.AI; 
+  const { dispatch, designLayer, previewGroup, config, tabId } = useStore();
+  const isAiMode = tabId === TABS_IDS.AI; 
 
   const [pen, savePenDebounced, savePenNoDebounce] = useAnnotation(
     {
@@ -134,8 +134,8 @@ const PenOptions = ({ t }) => {
       annotation={pen}
       updateAnnotation={savePenDebounced}
       t={t}
-      // hidePositionField
-      // hideFillOption
+      hidePositionField
+      hideFillOption
       // hidePositionField={isAiMode}
       // hideFillOption={isAiMode}  
     />
