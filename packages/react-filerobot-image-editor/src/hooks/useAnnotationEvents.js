@@ -18,6 +18,7 @@ const useAnnotationEvents = () => {
     dispatch({
       type: SET_ANNOTATION,
       payload: annotationProps,
+      tabId,
     });
   }, []);
 

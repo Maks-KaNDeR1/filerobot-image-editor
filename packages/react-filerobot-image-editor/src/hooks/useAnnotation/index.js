@@ -18,6 +18,7 @@ const useAnnotation = (annotation = {}, enablePreview = true) => {
     annotations,
     selectionsIds = [],
     config,
+    tabId,
   } = useStore();
   const annotationDefaults = {
     ...config.annotationsCommon,
@@ -36,6 +37,7 @@ const useAnnotation = (annotation = {}, enablePreview = true) => {
     dispatch({
       type: SET_ANNOTATION,
       payload: savableAnnotationData,
+      tabId: tabId,
     });
     if (savableAnnotationData.id && annotation.name !== TOOLS_IDS.PEN) {
       debounce(() => {
@@ -77,6 +79,7 @@ const useAnnotation = (annotation = {}, enablePreview = true) => {
           scaleX,
           scaleY,
           rotation,
+          tabId,
           ...dimensionlessProps
         } = currentAnnotation;
 
@@ -105,6 +108,7 @@ const useAnnotation = (annotation = {}, enablePreview = true) => {
       return {
         ...initialProps,
         ...newAnnotationData,
+        tabId,
         id:
           newAnnotationData.id ||
           randomId(newAnnotationData.name || latest.name),

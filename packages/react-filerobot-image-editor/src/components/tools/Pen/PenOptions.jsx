@@ -72,6 +72,7 @@ const PenOptions = ({ t }) => {
           id: updatedPen.current.id,
           points: updatedPen.current.points,
           dismissHistory: true,
+          tabId: tabId,
         },
       });
     }
