@@ -11,10 +11,12 @@ const EllipseOptions = ({ t }) => {
   const {tabId} = useStore();
   const [ellipse, saveEllipse] = useAnnotation({
     name: TOOLS_IDS.ELLIPSE,
-    defaultAnnotation: tabId === TABS_IDS.AI
-      ? { fill: '#ac0606', strokeWidth: 2 }
-      : undefined,
+    ...(tabId === TABS_IDS.AI && { stroke: '#ac0606', fill: 'rgba(0,0,0,0)', strokeWidth: 3 }),
   });
+
+  if (tabId === TABS_IDS.AI) {
+    return null;
+  }
 
   return (
     <AnnotationOptions

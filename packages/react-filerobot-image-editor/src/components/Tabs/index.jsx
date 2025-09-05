@@ -14,18 +14,27 @@ const Tabs = ({ toggleMainMenu, isDrawer }) => {
     t,
     tabId = null,
     dispatch,
-    config: { defaultTabId, tabsIds, useCloudimage, customTabs = [] },
+    config: { defaultTabId, tabsIds, useCloudimage, customTabs = [], onTabClick },
   } = useStore();
-
+ const store = useStore();
+  console.log(store);
+  
   const currentTabId = tabId || defaultTabId;
 
-  const selectTab = useCallback((newTabId) => {
+  const selectTab = useCallback(
+  (newTabId) => {
+    if (onTabClick && typeof onTabClick === 'function') {
+      onTabClick(newTabId);
+    }
+
     dispatch({
       type: SELECT_TAB,
       payload: { tabId: newTabId },
     });
     toggleMainMenu(false);
-  }, [dispatch, toggleMainMenu]);
+  },
+  [onTabClick, dispatch, toggleMainMenu]
+);
 
   const chosenTabs = useMemo(() => {
     let tabs = [];

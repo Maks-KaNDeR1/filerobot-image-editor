@@ -15,10 +15,12 @@ const RectOptions = ({ t }) => {
   const {tabId} = useStore();
   const [rect, saveRect] = useAnnotation({
     name: TOOLS_IDS.RECT, 
-    defaultAnnotation: tabId === TABS_IDS.AI
-      ? { fill: '#ac0606', strokeWidth: 2 }
-      : undefined,
+    ...(tabId === TABS_IDS.AI && { stroke: '#ac0606', fill: 'rgba(0,0,0,0)', strokeWidth: 3 }),
   });
+
+  if (tabId === TABS_IDS.AI) {
+    return null;
+  }
 
   return (
     <AnnotationOptions

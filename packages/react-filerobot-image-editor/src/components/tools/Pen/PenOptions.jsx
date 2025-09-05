@@ -24,7 +24,7 @@ const PenOptions = ({ t }) => {
       ...config.annotationsCommon,
       ...config[TOOLS_IDS.PEN],
       name: TOOLS_IDS.PEN,
-      ...(isAiMode && { fill: '#ac0606', strokeWidth: 2 }), 
+      ...(isAiMode && { stroke: '#ac0606', fill: '#ac0606', strokeWidth: 3 }), 
     },
     false,
   );
@@ -127,7 +127,11 @@ const PenOptions = ({ t }) => {
       }
     };
   }, [designLayer]);
-
+  
+  if (tabId === TABS_IDS.AI) {
+    return null;
+  }
+  
   return (
     <AnnotationOptions
       className="FIE_pen-tool-options"
@@ -136,8 +140,6 @@ const PenOptions = ({ t }) => {
       t={t}
       hidePositionField
       hideFillOption
-      // hidePositionField={isAiMode}
-      // hideFillOption={isAiMode}  
     />
   );
 };

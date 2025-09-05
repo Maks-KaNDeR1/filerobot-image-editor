@@ -21,16 +21,21 @@ const ToolsBar = ({ isPhoneScreen }) => {
     toolId,
     annotations,
     selectionsIds = [],
-    config: { defaultTabId, defaultToolId, useCloudimage },
+    config: { defaultTabId, defaultToolId, useCloudimage, customTools = [], customTabs},
   } = useStore();
   const currentTabId = tabId || defaultTabId;
   const currentToolId =
     toolId || defaultToolId || TABS_TOOLS[currentTabId]?.[0];
 
-  const tabTools = useMemo(
-    () => TABS_TOOLS[currentTabId] || [],
-    [currentTabId],
-  );
+const tabTools = useMemo(() => {
+  const customTab = customTabs?.find((t) => t.id === currentTabId);
+  if (customTab?.tools) {
+    return customTab.tools;
+  }
+
+  return TABS_TOOLS[currentTabId] || [];
+}, [currentTabId, customTabs]);
+
 
   const selectTool = useCallback((newToolId) => {
     dispatch({
